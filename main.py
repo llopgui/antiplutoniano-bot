@@ -5,8 +5,8 @@ from discord import Intents, Client, Message
 from responses import get_response
 
 # STEP 0: LOAD OUR TOKEN FROM SOMEWHERE SAFE
-load_dotenv()
-TOKEN: Final[str] = os.getenv('DISCORD_TOKEN')
+load_dotenv(override=True)
+TOKEN = os.getenv('DISCORD_TOKEN')
 
 # STEP 1: BOT SETUP
 intents: Intents = Intents.default()
@@ -24,8 +24,12 @@ async def send_message(message: Message, user_message: str) -> None:
         user_message = user_message[1:]
 
     try:
+        # Usa directamente get_response para manejar todas las respuestas, incluidas las menciones a Plutón
         response: str = get_response(user_message)
-        await message.author.send(response) if is_private else await message.channel.send(response)
+        if is_private:
+            await message.author.send(response)
+        else:
+            await message.channel.send(response)
     except Exception as e:
         print(e)
 
@@ -57,6 +61,3 @@ def main() -> None:
 
 if __name__ == '__main__':
     main()
-
-
-
