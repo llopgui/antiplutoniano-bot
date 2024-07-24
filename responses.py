@@ -29,12 +29,12 @@ def get_response(user_input: str) -> str:
     lowered: str = user_input.lower()
 
     if lowered == '':
-        return 'Well, you\'re awfully silent...'
+        return 'Vaya, estás terriblemente silencioso...'
     else:
         for key, value in responses.items():
             if key in lowered:
                 return choice(value)  # Selecciona una respuesta aleatoria de la lista
         # Respuesta por defecto si no se encuentra ninguna clave
-        return choice(['I do not understand...',
-                       'What are you talking about?',
-                       'Do you mind rephrasing that?'])
+        return choice(['No entiendo...',
+                       '¿De qué estás hablando?',
+                       '¿Te importaría reformular eso?'])

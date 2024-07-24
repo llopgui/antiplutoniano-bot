@@ -4,27 +4,27 @@ from dotenv import load_dotenv
 from discord import Intents, Client, Message
 from responses import get_response
 
-# STEP 0: LOAD OUR TOKEN FROM SOMEWHERE SAFE
+# PASO 0: CARGAR NUESTRO TOKEN DE UN LUGAR SEGURO
 load_dotenv(override=True)
 TOKEN = os.getenv('DISCORD_TOKEN')
 
-# STEP 1: BOT SETUP
+# PASO 1: CONFIGURACIÓN DEL BOT
 intents: Intents = Intents.default()
 intents.message_content = True  # NOQA
 client: Client = Client(intents=intents)
 
 
-# STEP 2: MESSAGE FUNCTIONALITY
+# PASO 2: FUNCIONALIDAD DE MENSAJES
 async def send_message(message: Message, user_message: str) -> None:
     if not user_message:
-        print('(Message was empty because intents were not enabled probably)')
+        print('(El mensaje estaba vacío probablemente porque los intents no estaban habilitados)')
         return
 
     if is_private := user_message[0] == '?':
         user_message = user_message[1:]
 
     try:
-        # Usa directamente get_response para manejar todas las respuestas, incluidas las menciones a Plutón
+        # Usa directamente get_response() para manejar todas las respuestas, incluidas las menciones a "Plutón"
         response: str = get_response(user_message)
         if is_private:
             await message.author.send(response)
@@ -34,13 +34,13 @@ async def send_message(message: Message, user_message: str) -> None:
         print(e)
 
 
-# STEP 3: HANDLING THE STARTUP FOR OUR BOT
+# PASO 3: MANEJANDO EL INICIO DE NUESTRO BOT
 @client.event
 async def on_ready() -> None:
-    print(f'{client.user} is now running!')
+    print(f'{client.user} está en funcionamiento!')
 
 
-# STEP 4: HANDLING INCOMING MESSAGES
+# PASO 4: MANEJO DE MENSAJES ENTRANTE
 @client.event
 async def on_message(message: Message) -> None:
     if message.author == client.user:
@@ -54,7 +54,7 @@ async def on_message(message: Message) -> None:
     await send_message(message, user_message)
 
 
-# STEP 5: MAIN ENTRY POINT
+# PASO 5: PUNTO DE ENTRADA PRINCIPAL
 def main() -> None:
     client.run(token=TOKEN)
 
