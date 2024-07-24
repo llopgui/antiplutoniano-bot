@@ -3,8 +3,8 @@
 ## Tabla de Contenidos
 - [Empezando](#empezando)
 - [Proceso de Contribución](#proceso-de-contribución)
-- [Código de Conducta](#código-de-conducta)-process)
-- [Licencia](#licencia)ode-of-conduct)
+- [Código de Conducta](#código-de-conducta)
+- [Licencia](#licencia)
 
 
 ## Empezando

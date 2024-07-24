@@ -22,7 +22,9 @@ Si Python no está instalado, visita python.org para descargar e instalar la ver
 # Clonar el repositorio
 Primero, deberás clonar el repositorio de GitHub en tu máquina local. Puedes hacerlo con el siguiente comando:
 
-Asegúrate de reemplazar https://github.com/llopgui/antiplutoniano-bot con la URL actual del repositorio de GitHub.
+```bash
+git clone https://github.com/llopgui/antiplutoniano-bot.git
+```
 
 # Instalar dependencias
 Navega hasta el directorio del proyecto clonado y ejecuta el siguiente comando para instalar todas las dependencias necesarias:
