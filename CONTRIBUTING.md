@@ -11,11 +11,11 @@
 Para comenzar a contribuir, por favor sigue estos pasos:
 1. Haz un fork del repositorio.
 2. Clona el repositorio bifurcado en tu máquina local.
-3. Crea una nueva rama para tus cambios.cal machine.
+3. Crea una nueva rama para tus cambios.
 4. Realiza los cambios y mejoras deseadas.
 5. Prueba tus cambios a fondo.improvements.
 6. Realiza un commit con un mensaje descriptivo.
-7. Haz push de tus cambios a tu repositorio bifurcado. message.
+7. Haz push de tus cambios a tu repositorio bifurcado.
 8. Envía una pull request al repositorio principal.
 
 

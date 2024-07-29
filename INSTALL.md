@@ -41,7 +41,7 @@ Este comando instalará las siguientes bibliotecas requeridas para el proyecto:
 # Configurar variables de entorno
 Crea un archivo .env en el directorio raíz del proyecto y agrega las siguientes variables de entorno:
 
-Asegúrate de reemplazar your_discord_bot_token_here con tu token real de Discord.
+Asegúrate de reemplazar your_discord_bot_token_here en tu archivo ".env" con tu token real de Discord.
 
 # Ejecutar el bot
 Una vez completados los pasos anteriores, estás listo para ejecutar el bot. Hazlo con el siguiente comando:
@@ -57,4 +57,3 @@ python3 main.py
 ¡Eso es todo! Tu bot de Discord debería estar funcionando correctamente.
 
 Este archivo INSTALL.md proporciona una guía paso a paso para que los usuarios configuren el proyecto desde cero, asegurándose de tener todas las herramientas y dependencias necesarias para ejecutar el proyecto sin problemas.
-
