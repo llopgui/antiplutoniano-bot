@@ -1,0 +1,28 @@
+# Dependencias de desarrollo para el Bot Antiplutoniano
+
+# Dependencias de producción
+-r requirements.txt
+
+# Herramientas de desarrollo
+black>=23.0.0          # Formateador de código
+isort>=5.12.0          # Organizador de imports
+flake8>=6.0.0          # Linter
+mypy>=1.0.0            # Verificador de tipos
+pylint>=2.17.0         # Análisis de código
+
+# Testing
+pytest>=7.0.0          # Framework de testing
+pytest-cov>=4.0.0     # Cobertura de código
+pytest-asyncio>=0.21.0 # Testing asíncrono
+
+# Documentación
+sphinx>=6.0.0         # Generador de documentación
+sphinx-rtd-theme>=1.2.0 # Tema para documentación
+
+# Seguridad
+bandit>=1.7.0         # Análisis de seguridad
+safety>=2.3.0         # Verificación de vulnerabilidades
+
+# Utilidades
+pre-commit>=3.0.0     # Git hooks
+bump2version>=1.0.0   # Manejo de versiones
