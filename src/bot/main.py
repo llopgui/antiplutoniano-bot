@@ -35,12 +35,37 @@ from .config import (
 )
 from .responses import detect_pluto_planet_claim, get_pluto_fact, get_response
 
-# Configurar logging
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    handlers=[logging.FileHandler("bot.log"), logging.StreamHandler(sys.stdout)],
-)
+# Configurar logging con soporte UTF-8 para Windows
+try:
+    # Para Windows, configurar la codificación UTF-8
+    import io
+
+    # Configurar stdout/stderr para UTF-8
+    if sys.platform == "win32":
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
+        sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
+
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        handlers=[
+            logging.FileHandler("bot.log", encoding="utf-8"),
+            logging.StreamHandler(sys.stdout),
+        ],
+        force=True,  # Sobrescribir configuración existente
+    )
+except Exception as e:
+    # Fallback sin emojis si hay problemas con UTF-8
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        handlers=[
+            logging.FileHandler("bot.log"),
+            logging.StreamHandler(sys.stdout),
+        ],
+        force=True,
+    )
+
 logger = logging.getLogger(__name__)
 
 
@@ -70,7 +95,10 @@ def load_environment() -> str:
     # Validación básica del formato del token
     if (
         len(token) < 50
-        or not token.replace(".", "").replace("-", "").replace("_", "").isalnum()
+        or not token.replace(".", "")
+        .replace("-", "")
+        .replace("_", "")
+        .isalnum()
     ):
         raise ValueError(
             "❌ El token de Discord parece inválido. "
@@ -174,7 +202,9 @@ async def send_message(message: Message, user_message: str) -> None:
         logger.error(f"❌ Error inesperado: {e}")
 
 
-async def send_response(message: Message, response: str, is_private: bool) -> None:
+async def send_response(
+    message: Message, response: str, is_private: bool
+) -> None:
     """
     Envía la respuesta al canal apropiado (público o privado).
 
@@ -200,7 +230,9 @@ async def send_response(message: Message, response: str, is_private: bool) -> No
 
 
 # PASO 3: COMANDOS SLASH MEJORADOS
-@bot.tree.command(name="pluto_fact", description="Obtén un dato curioso sobre Plutón")
+@bot.tree.command(
+    name="pluto_fact", description="Obtén un dato curioso sobre Plutón"
+)
 async def pluto_fact_command(interaction: discord.Interaction):
     """Comando para obtener datos curiosos sobre Plutón."""
     try:
@@ -234,8 +266,12 @@ async def stats_command(interaction: discord.Interaction):
             color=0x3498DB,
             timestamp=discord.utils.utcnow(),
         )
-        embed.add_field(name="🎯 Correcciones", value=bot.corrections_made, inline=True)
-        embed.add_field(name="🌌 Servidores", value=len(bot.guilds), inline=True)
+        embed.add_field(
+            name="🎯 Correcciones", value=bot.corrections_made, inline=True
+        )
+        embed.add_field(
+            name="🌌 Servidores", value=len(bot.guilds), inline=True
+        )
         embed.add_field(name="👥 Usuarios", value=total_users, inline=True)
         embed.add_field(name="⏱️ Uptime", value=uptime, inline=True)
         embed.add_field(name="🔧 Versión", value=BOT_VERSION, inline=True)
@@ -294,10 +330,14 @@ async def help_command(interaction: discord.Interaction):
         )
 
         embed.add_field(
-            name="📚 Palabras clave", value='"plutón", "pluton", "pluto"', inline=False
+            name="📚 Palabras clave",
+            value='"plutón", "pluton", "pluto"',
+            inline=False,
         )
 
-        embed.set_footer(text="👨‍💻 Creado por llopgui | 📄 Licencia: CC BY-NC-SA 4.0")
+        embed.set_footer(
+            text="👨‍💻 Creado por llopgui | 📄 Licencia: CC BY-NC-SA 4.0"
+        )
 
         await interaction.response.send_message(embed=embed)
         logger.info(f"ℹ️ Ayuda enviada a {interaction.user}")
@@ -340,7 +380,9 @@ async def on_message(message: Message) -> None:
     # Log del mensaje recibido (solo si contiene palabras clave)
     if any(word in user_message.lower() for word in REQUIRED_WORDS):
         if LOG_MESSAGES:
-            logger.info(f'📨 [{message.channel}] {message.author}: "{user_message}"')
+            logger.info(
+                f'📨 [{message.channel}] {message.author}: "{user_message}"'
+            )
 
         # Procesar el mensaje
         await send_message(message, user_message)
